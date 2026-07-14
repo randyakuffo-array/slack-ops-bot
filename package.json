@@ -1,0 +1,23 @@
+{
+  "name": "slack-maintenance-bot",
+  "version": "1.0.0",
+  "description": "Shared Slack /maintenance command for announcing maintenance windows",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "slack",
+    "bolt",
+    "maintenance"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@slack/bolt": "^4.4.0",
+    "dotenv": "^16.5.0"
+  }
+}
