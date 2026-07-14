@@ -6,10 +6,11 @@ require('dotenv').config();
 
 function requireEnv(name) {
   const value = process.env[name];
-  if (!value) {
+  if (!value || !String(value).trim()) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
-  return value;
+  // Trim — trailing newlines/spaces from Render paste are a common invalid_auth cause
+  return String(value).trim();
 }
 
 function loadJson(filename) {
@@ -25,11 +26,20 @@ function loadJson(filename) {
   return parsed;
 }
 
+const slackBotToken = requireEnv('SLACK_BOT_TOKEN');
+const slackSigningSecret = requireEnv('SLACK_SIGNING_SECRET');
+
+if (!slackBotToken.startsWith('xoxb-')) {
+  throw new Error(
+    'SLACK_BOT_TOKEN must be a Bot User OAuth Token starting with xoxb- (not a signing secret, app-level token, or user token)',
+  );
+}
+
 const config = {
   port: Number(process.env.PORT) || 3000,
   nodeEnv: process.env.NODE_ENV || 'development',
-  slackBotToken: requireEnv('SLACK_BOT_TOKEN'),
-  slackSigningSecret: requireEnv('SLACK_SIGNING_SECRET'),
+  slackBotToken,
+  slackSigningSecret,
   channels: loadJson('channels.json'),
   allowedUsers: loadJson('allowed-users.json'),
 };
