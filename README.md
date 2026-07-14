@@ -51,6 +51,8 @@ PORT=3000
 ["U0123456789", "U9876543210"]
 ```
 
+Use `["*"]` to allow every user in the workspace.
+
 Tip: In Slack, right-click a channel or user → **Copy link** → the ID is the trailing `C…` / `U…` segment. Or use the Slack API (`conversations.list`, `users.list`).
 
 ### 4. Create the Slack app
