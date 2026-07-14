@@ -7,6 +7,10 @@ const config = require('./config');
  * @returns {boolean}
  */
 function isAllowedUser(userId) {
+  // "*" opens /maintenance to everyone in the workspace
+  if (config.allowedUsers.includes('*')) {
+    return true;
+  }
   return config.allowedUsers.includes(userId);
 }
 
